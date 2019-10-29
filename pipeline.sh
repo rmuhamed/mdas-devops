@@ -9,8 +9,8 @@ deps(){
 
 # cleanup
 cleanup(){
+    pkill votingapp || ps aux | grep votingapp | awk {'print $1'} | head -1 | xargs kill -9
     rm -rf build || true
-    pkill votingapp || ps aux | grep votingapp | awk {'print $2'} | head -1 | xargs kill -9
 }
 
 # build 
