@@ -11,11 +11,13 @@
 * [Golang](https://golang.org/dl/)
 * [Python](https://www.python.org/downloads/)
 * [jq](https://stedolan.github.io/jq/download/)
+* [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/)
 
 ### Signup for
 
 * [Dockerhub](https://hub.docker.com)
 * [Github](https://github.com)
+* [Azure Education](https://azureforeducation.microsoft.com/devtools)
 
 ### Pull most popular images
 
