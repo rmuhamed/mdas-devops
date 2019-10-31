@@ -10,7 +10,7 @@ deps(){
 # cleanup
 cleanup(){
     pkill votingapp || ps aux | grep votingapp | awk {'print $1'} | head -1 | xargs kill -9
-    rm -rf build || true
+    rm -rf build
 }
 
 # build 
@@ -71,6 +71,6 @@ test() {
 }
 
 deps
-cleanup
+cleanup || true
 build
 retry test
