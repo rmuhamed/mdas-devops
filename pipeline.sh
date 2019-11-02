@@ -19,19 +19,7 @@ pushd build
 popd
 
 # test
-curl --url http://localhost:8080/vote \
-    --request POST \
-    --data '{"topics":["dev", "ops"]}' \
-    --header "Content-Type: application/json"
-
-curl --url http://localhost:8080/vote \
-    --request PUT \
-    --data '{"topic": "dev"}' \
-    --header "Content-Type: application/json"
-
-winner=$(curl --url http://localhost:8080/vote \
-    --request DELETE \
-    --header "Content-Type: application/json" | jq -r '.winner') 
+python3 tests.py
 
 echo "Winner IS " $winner
 
