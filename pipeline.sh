@@ -19,25 +19,25 @@ pushd build
 popd
 
 # test
-curl --url http://localhost:2000/vote \
+curl --url http://localhost:8080/vote \
     --request POST \
     --data '{"topics":["dev", "ops"]}' \
     --header "Content-Type: application/json"
 
-curl --url http://localhost:2000/vote \
+curl --url http://localhost:8080/vote \
     --request PUT \
     --data '{"topic": "dev"}' \
     --header "Content-Type: application/json"
 
-winner=$(curl --url http://localhost:2000/vote \
+winner=$(curl --url http://localhost:8080/vote \
     --request DELETE \
-    --header "Content-Type: application/json" | ./jq -r '.winner') 
+    --header "Content-Type: application/json" | jq -r '.winner') 
 
 echo "Winner IS " $winner
 
-expectedWinner = "dev"
+expectedWinner="dev"
 
-if [ "$expectedWinner" == "$winner"]; then
+if [ "$expectedWinner" == "$winner" ]; then
     echo 'TEST PASSED'
     exit 0
 else 
