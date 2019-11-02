@@ -9,7 +9,7 @@ deps(){
 
 # cleanup
 cleanup(){
-    pkill votingapp || ps aux | grep votingapp | awk {'print $1'} | head -1 | xargs kill -9
+    docker rm -f myvotingapp
     rm -rf build || true
 }
 
@@ -19,9 +19,8 @@ build(){
     go build -o ./build ./src/votingapp
     cp -r ./src/votingapp/ui ./build
 
-    pushd build
-    ./votingapp &
-    popd
+    docker build -f src/votingapp/Dockerfile -t rmuhamed/votingapp .
+    docker run --name votingapp -p 8080:80 -d rmuhamed/votingapp
 }
 
 retry(){
@@ -42,8 +41,8 @@ retry(){
 
 # test
 test() {
-    votingurl='http://localhost/vote'
-    curl --url  $votingurl \
+    votingurl='http://localhost:8080/vote'
+    curl --url  votingurl \
         --request POST \
         --data '{"topics":["dev", "ops"]}' \
         --header "Content-Type: application/json"
@@ -71,6 +70,7 @@ test() {
 }
 
 deps
-cleanup
-build
+cleanup || true
+GOOS=linux build
 retry test
+docker push rmuhamed/votingapp
