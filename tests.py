@@ -1,19 +1,18 @@
-# importing the requests library
 import requests
+import json
 
 def doPost(votingappUrl, payload):
-    response=requests.post(url = votingappUrl, data = payload)
-    return response.status_code
+    response = requests.post(url = votingappUrl, data = payload)
 
 def doPut(votingappUrl, payload):
-    req=requests.put(url = votingappUrl, data = payload)
-    return req.status_code
+    response = requests.put(url = votingappUrl, json = payload)
 
 def doDelete(votingappUrl):
-    req=requests.delete(votingappUrl)
-    return req.json
+    response = requests.delete(votingappUrl)
+    return response.json()
 
 url='http://localhost:8080/vote'
 
-print(doPost(url, {'topics': ['dev', 'ops']}))
-print(doPut(url, {'topic': 'dev'}))
+doPost(url, {'topics': ['dev', 'ops']})
+doPut(url, {'topic': 'dev'})
+doDelete(url)
