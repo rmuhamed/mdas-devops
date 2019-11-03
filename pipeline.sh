@@ -19,7 +19,7 @@ pushd build
 popd
 
 # test
-python3 tests.py
+python tests.py | jq -r '.winner'
 
 echo "Winner IS " $winner
 
