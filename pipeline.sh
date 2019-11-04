@@ -20,7 +20,7 @@ build(){
     cp -r ./src/votingapp/ui ./build
 
     docker build -f src/votingapp/Dockerfile -t rmuhamed/votingapp .
-    docker run --name votingapp -p 8080:80 -d rmuhamed/votingapp
+    docker run --name myvotingapp -p 8080:80 -d rmuhamed/votingapp
 }
 
 retry(){
