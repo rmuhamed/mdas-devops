@@ -73,4 +73,6 @@ deps
 cleanup || true
 GOOS=linux build
 retry test
+
+#delivery
 docker push rmuhamed/votingapp
