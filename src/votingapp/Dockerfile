@@ -1,7 +1,10 @@
 #BUILDER
-FROM golang as builder
+FROM alpine as builder
 
-RUN go get github.com/gorilla/websocket && \
+#Cambiar por el gestor de alpine
+#Git no es parte de la distribución, hay que bajarlo
+
+RUN go get github.com/gorilla/websocket && \  
     go get github.com/labstack/echo
 
 COPY . .
@@ -10,7 +13,7 @@ RUN go build -o /build/votingapp && \
     cp -r ui ./build
 
 #RUNTINE
-FROM ubuntu:18.04
+FROM alpine
 
 WORKDIR /app
 COPY --from=builder /build .

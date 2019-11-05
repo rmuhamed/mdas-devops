@@ -1,6 +1,6 @@
-FROM ubuntu:18.04
-
-RUN apt-get update && apt-get install -y \
+FROM alpine
+#Cambiar por el gestor de alpine
+RUN apt-get update && apt-get install -y \ 
     curl \
     jq \
     && rm -rf /var/lib/apt/lists/*
