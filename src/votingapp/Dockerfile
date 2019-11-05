@@ -1,6 +1,18 @@
+#BUILDER
+FROM golang as builder
+
+RUN go get github.com/gorilla/websocket && \
+    go get github.com/labstack/echo
+
+COPY . .
+
+RUN go build -o /build/votingapp && \
+    cp -r ui ./build
+
+#RUNTINE
 FROM ubuntu:18.04
 
 WORKDIR /app
-COPY build .
+COPY --from=builder /build .
 
 ENTRYPOINT [ "./votingapp" ]
