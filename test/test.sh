@@ -1,29 +1,6 @@
 #!/bin/bash
 set -e
 
-# install deps
-deps(){
-    go get github.com/gorilla/websocket
-    go get github.com/labstack/echo
-}
-
-# cleanup
-cleanup(){
-    pkill votingapp || ps aux | grep votingapp | awk {'print $1'} | head -1 | xargs kill -9
-    rm -rf build
-}
-
-# build
-build(){
-    mkdir build
-    go build -o ./build ./src/votingapp
-    cp -r ./src/votingapp/ui ./build
-
-    pushd build
-    ./votingapp &
-    popd
-}
-
 retry(){
     n=0
     interval=5
@@ -42,17 +19,17 @@ retry(){
 
 # test
 test() {
-    votingurl='http://localhost/vote'
+    votingurl="http://${VOTINGAPP_HOST}/vote"
     curl --url  $votingurl \
         --request POST \
         --data '{"topics":["dev", "ops"]}' \
-        --header "Content-Type: application/json"
+        --header "Content-Type: application/json" 
 
     curl --url $votingurl \
         --request PUT \
         --data '{"topic": "dev"}' \
-        --header "Content-Type: application/json"
-
+        --header "Content-Type: application/json" 
+    
     winner=$(curl --url $votingurl \
         --request DELETE \
         --header "Content-Type: application/json" | jq -r '.winner')
@@ -70,7 +47,4 @@ test() {
     fi
 }
 
-deps
-cleanup || true
-build
 retry test
