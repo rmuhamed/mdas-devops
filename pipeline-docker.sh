@@ -5,6 +5,7 @@ docker network create votingapp || true
 
 #cleanup
 docker rm -f myvotingapp || true
+docker rm -f myredis || true
 
 #build
 docker build \
@@ -12,9 +13,15 @@ docker build \
     ./src/votingapp
 
 docker run \
+    --name myredis \
+    --network votingapp \
+    -d redis 
+
+docker run \
     --name myvotingapp \
     --network votingapp \
     -p 8080:80 \
+    -e REDIS="myredis:6379" \
     -d paulopez/votingapp
 
 # test
