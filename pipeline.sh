@@ -5,7 +5,7 @@ set -e
 deps(){
     go get github.com/gorilla/websocket
     go get github.com/labstack/echo
-    go get githurb.com/go-redis/redis
+    go get github.com/go-redis/redis
 }
 
 # cleanup
