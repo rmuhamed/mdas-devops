@@ -1,15 +1,8 @@
 #!/bin/bash
-set -e
 
-#cleanup
-docker-compose rm -f || true
-
-#build
-docker-compose build
-docker-compose up -d
-
-# test
-docker-compose run --rm mytest
-
-#delivery
+docker-compose rm -f && \
+docker-compose build && \
+docker-compose up -d && \
+docker-compose run --rm mytest && \
 docker-compose push
+echo "GREEN" || echo "RED"
