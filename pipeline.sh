@@ -9,7 +9,7 @@ deps(){
 
 # cleanup
 cleanup(){
-    docker rm -f myvotingapp
+    docker rm -f myvotingapp || true
     rm -rf build || true
 }
 
@@ -42,7 +42,7 @@ retry(){
 # test
 test() {
     votingurl='http://localhost:8080/vote'
-    curl --url  votingurl \
+    curl --url  $votingurl \
         --request POST \
         --data '{"topics":["dev", "ops"]}' \
         --header "Content-Type: application/json"
