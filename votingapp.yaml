@@ -15,7 +15,7 @@ metadata:
   namespace: votingapp
 spec:
   containers:
-  - image: rmuhamed/votingapp
+  - image: rmuhamed/votingapp:0.1
     name: myvotingapp
     env:
       - name: redis
@@ -37,7 +37,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: myvotingapp
-  namespace: myvotingapp
+  namespace: votingapp
 spec:
   ports:
   - nodePort: 31940
@@ -52,11 +52,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: myredis
-  namespace: myvotingapp
+  namespace: votingapp
 spec:
   ports:
-    port: 6379
+  - port: 6379
     targetPort: 6379
   selector:
     app: myredis
-  type: NodePort
+  #type: NodePort

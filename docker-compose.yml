@@ -5,7 +5,7 @@ services:
     image: redis
 
   myvotingapp:
-    image: paulopez/votingapp
+    image: rmuhamed/votingapp:0.1
     build:
       dockerfile: Dockerfile
       context: ./src/votingapp
@@ -15,7 +15,7 @@ services:
       REDIS: "myredis:6379"
 
   mytest:
-    image: paulopez/votingapp-test
+    image: rmuhamed/votingapp-test
     build:
       context: ./test
     environment:
