@@ -60,3 +60,26 @@ spec:
   selector:
     app: myredis
   #type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: votingapp
+spec:
+  selector:
+    matchLabels:
+      app: votingapp
+  template:
+    metadata:
+      labels:
+        app: myvotingapp
+    spec:
+      containers:
+      - name: votingapp
+        image: rmuhamed/votingapp
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: <Port>
