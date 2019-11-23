@@ -1,11 +1,9 @@
-FROM ubuntu:18.04
+FROM python:3.8-buster
 
-RUN apt-get update && apt-get install -y \
-    curl \
-    jq \
-    && rm -rf /var/lib/apt/lists/*
+RUN pip install retry requests
 
-COPY test.sh .
-RUN chmod +x test.sh
+RUN export VOTINGAPP_HOST
 
-ENTRYPOINT [ "./test.sh" ]
+COPY test.py .
+
+ENTRYPOINT [ "python", "test.py" ]
