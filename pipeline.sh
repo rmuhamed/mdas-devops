@@ -14,13 +14,13 @@ cleanup(){
     rm -rf build
 }
 
-# build
+# build 
 build(){
     mkdir build
-    go build -o ./build ./src/votingapp
+    go build -o ./build ./src/votingapp 
     cp -r ./src/votingapp/ui ./build
 
-    docker run 6379:6379 -d redis
+    docker run -p 6379:6379 -d redis || true
     pushd build
     ./votingapp &
     popd

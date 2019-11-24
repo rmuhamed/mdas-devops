@@ -15,7 +15,7 @@ services:
       REDIS: "myredis:6379"
 
   mytest:
-    image: rmuhamed/votingapp
+    image: rmuhamed/votingapp-test
     build:
       dockerfile: Dockerfile
       context: ./test
