@@ -58,6 +58,7 @@ spec:
     targetPort: 6379
   selector:
     app: myredis
+  type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -83,4 +84,25 @@ spec:
         env:
           - name: VOTINGAPP_HOST
             value: myvotingapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: myredis
+  name: myredis
+  namespace: votingapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myredis
+  template:
+    metadata:
+      labels:
+        app: myredis
+    spec:
+      containers:
+      - name: myredis
+        image: redis
         
