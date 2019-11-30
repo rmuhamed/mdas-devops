@@ -40,13 +40,12 @@ metadata:
   namespace: votingapp
 spec:
   ports:
-  - nodePort: 31940
-    port: 80
+  - port: 80
     protocol: TCP
     targetPort: 80
   selector:
     app: myvotingapp
-  type: NodePort
+  type: ClusterIP
 ---
 apiVersion: v1
 kind: Service
