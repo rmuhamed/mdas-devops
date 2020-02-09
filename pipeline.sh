@@ -4,6 +4,9 @@ set -e
 go get github.com/labstack/echo
 go get github.com/gorilla/websocket
 
+pip install requests
+pip install retrying
+
 # cleanup
 rm -rf build || true
 pkill votingapp
